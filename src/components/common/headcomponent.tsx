@@ -4,6 +4,7 @@ import type { FC } from 'react';
 const HeadComp: FC<{ headTitle?: string | undefined }> = ({
   headTitle = undefined,
 }) => {
+  // Head component to define meta tags
   return (
     <>
       <Head>

@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 
 const Loading: FC = () => {
+  // common loading component
   return (
     <>
       <div className='z-50 flex h-full w-full items-center justify-center bg-transparent'>
