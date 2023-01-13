@@ -11,3 +11,9 @@
     @apply bg-slate-700;
   }
 }
+
+@layer components {
+  .btn-signin {
+    @apply m-2 w-full rounded bg-themePrimary-400 p-2 font-roboto uppercase;
+  }
+}
