@@ -7,12 +7,6 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Example {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-}
-
 // Necessary for Next auth
 model Account {
     id                String  @id @default(cuid())
@@ -48,6 +42,10 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+
+    Chats Chat[]
+
+    Message Message[]
 }
 
 model VerificationToken {
@@ -56,4 +54,26 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Message {
+    id   String @id @default(cuid())
+    text String
+
+    createdOn           DateTime @default(now())
+    seenByParticiapants Boolean  @default(false)
+
+    author User   @relation(fields: [userId], references: [id])
+    userId String
+
+    Chat   Chat?   @relation(fields: [chatId], references: [id])
+    chatId String?
+}
+
+model Chat {
+    id String @id @default(cuid())
+
+    messages Message[]
+    User     User?     @relation(fields: [userId], references: [id])
+    userId   String?
 }
