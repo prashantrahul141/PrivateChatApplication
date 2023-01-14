@@ -17,6 +17,17 @@ const HeadComp: FC<{ headTitle?: string | undefined }> = ({
         />
         {/* <link rel='manifest' href='/manifest.json'></link> */}
         <meta name='darkreader-lock' />
+        <meta content='Private Chat Application' property='og:title' />
+        <meta
+          content='Easy way to chat with people.'
+          property='og:description'
+        />
+        <meta
+          content='https://private-chat-application.up.railway.app'
+          property='og:url'
+        />
+        <meta content='' property='og:image' />
+        <meta content='#448fef' data-react-helmet='true' name='theme-color' />
       </Head>
     </>
   );
