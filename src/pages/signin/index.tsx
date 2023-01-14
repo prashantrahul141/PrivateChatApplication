@@ -11,17 +11,22 @@ const Signin: NextPage = () => {
   const router = useRouter();
 
   if (status === 'authenticated') {
-    router.push('/');
+    router.push('/').finally(() => {
+      ('');
+    });
   } else if (status === 'unauthenticated') {
     return (
       <>
         <HeadComp headTitle='Sign in'></HeadComp>
         <div className='flex h-screen w-screen items-center justify-center'>
-          <div className='m-2 flex h-max w-full max-w-7xl flex-grow items-center rounded bg-themePrimary-300/10 p-2 text-center  backdrop-blur-sm'>
-            <div className='hidden flex-auto font-righteous text-6xl sm:block'>
-              Welcome
+          <div className='h-max w-full max-w-xl rounded border border-themePrimary-50/40 py-10 text-center'>
+            <div className='mb-12'>
+              <span className='font-ubuntu text-3xl text-themePrimary-50/80'>
+                Sign in
+              </span>
             </div>
-            <div className='flex flex-auto'>
+            {/* Sign in form */}
+            <div>
               <SigninForm></SigninForm>
             </div>
           </div>
