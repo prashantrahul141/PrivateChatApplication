@@ -3,7 +3,7 @@ import type { FC } from 'react';
 const SigninForm: FC = () => {
   return (
     <>
-      <div className='w-full rounded bg-themePrimary-100/10'>
+      <div className='w-full'>
         <div>
           <button className='btn-signin'>Github</button>
         </div>
