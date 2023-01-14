@@ -19,6 +19,6 @@
   }
 
   .btn-signin {
-    @apply btn my-3 w-56 border border-themePrimary-200 bg-transparent text-base hover:bg-themePrimary-300 hover:text-themePrimary-900;
+    @apply btn my-3 w-full border border-themePrimary-200 bg-transparent text-base hover:bg-themePrimary-300 hover:text-themePrimary-900 sm:w-64;
   }
 }
