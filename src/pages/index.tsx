@@ -7,13 +7,13 @@ import Welcome from '@components/home/welcome';
 const Home: NextPage = () => {
   const { status } = useSession();
 
-  if (status === 'unauthenticated') {
+  if (status === 'authenticated') {
     return (
       <>
-        <HeadComp></HeadComp>
+        <HeadComp headTitle='Home'></HeadComp>
       </>
     );
-  } else if (status === 'authenticated') {
+  } else if (status === 'unauthenticated') {
     return (
       <>
         <Welcome></Welcome>
