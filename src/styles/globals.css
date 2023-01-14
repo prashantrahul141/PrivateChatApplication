@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -8,12 +9,12 @@
 @layer base {
   html,
   body {
-    @apply bg-slate-700;
+    @apply bg-baseBackground;
   }
 }
 
 @layer components {
   .btn-signin {
-    @apply m-2 w-full rounded bg-themePrimary-400 p-2 font-roboto uppercase;
+    @apply m-3 w-full max-w-xs rounded bg-themePrimary-400 py-3 font-roboto uppercase text-themePrimary-50 transition-all  hover:bg-themePrimary-200;
   }
 }
