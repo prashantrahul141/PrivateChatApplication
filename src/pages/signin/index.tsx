@@ -1,5 +1,6 @@
 import HeadComp from '@components/common/headcomponent';
 import Loading from '@components/common/loading';
+import NonLoginTopBar from '@components/common/nonlogintopbar';
 import SigninForm from '@components/forms/signinform';
 import type { NextPage } from 'next';
 import { useSession } from 'next-auth/react';
@@ -18,8 +19,9 @@ const Signin: NextPage = () => {
     return (
       <>
         <HeadComp headTitle='Sign in'></HeadComp>
+        <NonLoginTopBar></NonLoginTopBar>
         <div className='flex h-screen w-screen items-center justify-center'>
-          <div className='h-max w-full max-w-xl rounded border border-themePrimary-50/40 py-10 text-center'>
+          <div className='h-max w-full max-w-xl rounded border border-themePrimary-50/25 py-10 text-center'>
             <div className='mb-12'>
               <span className='font-ubuntu text-3xl tracking-wider text-themePrimary-50/80'>
                 Sign in
