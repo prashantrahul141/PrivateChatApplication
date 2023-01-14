@@ -21,7 +21,7 @@ const Signin: NextPage = () => {
         <div className='flex h-screen w-screen items-center justify-center'>
           <div className='h-max w-full max-w-xl rounded border border-themePrimary-50/40 py-10 text-center'>
             <div className='mb-12'>
-              <span className='font-ubuntu text-3xl text-themePrimary-50/80'>
+              <span className='font-ubuntu text-3xl tracking-wider text-themePrimary-50/80'>
                 Sign in
               </span>
             </div>
