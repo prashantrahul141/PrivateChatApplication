@@ -5,7 +5,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 
 const TopBar: FC<{ image: string | null | undefined }> = ({ image }) => {
-  const [showOptionsMenu, setShowOptionsMenu] = useState(true);
+  const [showOptionsMenu, setShowOptionsMenu] = useState(false);
 
   return (
     <>
