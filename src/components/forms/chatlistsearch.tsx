@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import { useState } from 'react';
 
 const ChatListSearch: FC<{
-  createCallbackFunc: ({ userId }: { userId: string }) => void;
+  createCallbackFunc: ({ userId }: { userId: string }) => Promise<void>;
 }> = ({ createCallbackFunc }) => {
   const [showToolTip, setShowToolTip] = useState(false);
   const [showCreateChat, setShowCreateChat] = useState(false);
@@ -11,7 +11,7 @@ const ChatListSearch: FC<{
   const [createInputValue, setCreateInputValue] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
-  const EXAMPLE_ID = 'clcw73c250000vrh8bvn6d1dy';
+  const EXAMPLE_ID = 'clcxrnd720005vrroao5ys1ta';
 
   return (
     <>
@@ -71,8 +71,6 @@ const ChatListSearch: FC<{
               <input
                 onChange={() => {
                   if (inputRef !== null && inputRef.current !== null) {
-                    console.log(createInputValue);
-
                     setCreateInputValue(inputRef.current.value.trim());
                     setButtonDisabled(
                       inputRef.current.value.trim().length === 0
@@ -116,9 +114,10 @@ const ChatListSearch: FC<{
                 <button
                   disabled={buttonDisabled}
                   className='btn px-2 font-ubuntu text-xs capitalize'
-                  onClick={() => {
-                    createCallbackFunc({ userId: createInputValue });
+                  onClick={async (e) => {
+                    e.preventDefault();
                     setShowCreateChat(false);
+                    await createCallbackFunc({ userId: createInputValue });
                   }}>
                   Create
                 </button>
