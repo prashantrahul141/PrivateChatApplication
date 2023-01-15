@@ -15,7 +15,7 @@
 
 @layer components {
   .btn {
-    @apply w-full max-w-xs rounded bg-themePrimary-400 py-2 font-roboto uppercase tracking-wide text-themePrimary-50 transition-all  hover:bg-themePrimary-300;
+    @apply w-full max-w-xs rounded bg-themePrimary-400 py-2 font-roboto uppercase tracking-wide text-themePrimary-50 transition-all hover:bg-themePrimary-300 disabled:cursor-not-allowed  disabled:bg-themePrimary-600/50 disabled:text-themePrimary-50/40;
   }
 
   .btn-signin {
