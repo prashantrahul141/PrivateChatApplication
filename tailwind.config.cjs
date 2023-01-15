@@ -9,7 +9,7 @@ module.exports = {
         ubuntu: ['ubuntu'],
       },
       colors: {
-        baseBackground: 'hsl(214, 20%, 10%)',
+        baseBackground: { 400: '#19212a', 500: 'hsl(214, 20%, 10%)' },
         themePrimary: {
           50: '#f2f8ff',
           100: '#b4d4fc',
