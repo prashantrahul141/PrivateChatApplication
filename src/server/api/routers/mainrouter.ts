@@ -4,12 +4,23 @@ import { prisma } from 'src/server/db';
 
 export const mainRouter = createTRPCRouter({
   getChatList: protectedProcedure.query(async ({ ctx }) => {
-    const _chatlist = await prisma.chat.findMany({
+    const data = await prisma.user.findUnique({
       where: {
-        userId: ctx.session.user.id,
+        id: ctx.session.user.id,
+      },
+      include: {
+        Chats: {
+          include: {
+            chat: true,
+            user: true,
+          },
+        },
       },
     });
-    return { chatlist: _chatlist };
+    if (data) {
+      return { status: 200, chatlist: data.Chats };
+    }
+    return { status: 404 };
   }),
 
   createChat: protectedProcedure
@@ -26,8 +37,16 @@ export const mainRouter = createTRPCRouter({
           status: 404,
         };
       }
+
       const createdChat = await prisma.chat.create({
-        data: { userId: ctx.session.user.id, toUser: input.userId },
+        data: {
+          Users: {
+            create: [{ userId: foundUser.id }, { userId: ctx.session.user.id }],
+          },
+        },
+        include: {
+          Users: true,
+        },
       });
 
       return { status: 201, createdChat };
