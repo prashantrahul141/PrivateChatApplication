@@ -3,6 +3,7 @@ import Loading from '@components/common/loading';
 import { useSession } from 'next-auth/react';
 import HeadComp from '@components/common/headcomponent';
 import Welcome from '@components/home/welcome';
+import ChatList from '@components/views/chatlist';
 
 const Home: NextPage = () => {
   const { status } = useSession();
@@ -11,6 +12,7 @@ const Home: NextPage = () => {
     return (
       <>
         <HeadComp headTitle='Home'></HeadComp>
+        <ChatList></ChatList>
       </>
     );
   } else if (status === 'unauthenticated') {
@@ -23,7 +25,9 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <Loading></Loading>
+      <div className=' flex h-screen w-screen items-center justify-center'>
+        <Loading></Loading>
+      </div>
     </>
   );
 };
