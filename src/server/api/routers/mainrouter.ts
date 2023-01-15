@@ -30,6 +30,6 @@ export const mainRouter = createTRPCRouter({
         data: { userId: ctx.session.user.id, toUser: input.userId },
       });
 
-      return { createdChat };
+      return { status: 201, createdChat };
     }),
 });
