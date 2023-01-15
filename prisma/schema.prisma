@@ -34,24 +34,39 @@ model Session {
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
-
-    Chats Chat[] @relation()
-}
-
 model VerificationToken {
     identifier String
     token      String   @unique
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model User {
+    id            String         @id @default(cuid())
+    name          String?
+    email         String?        @unique
+    emailVerified DateTime?
+    image         String?
+    accounts      Account[]
+    sessions      Session[]
+    Chats         ChatsOnUsers[]
+}
+
+model Chat {
+    id       String         @id @default(cuid())
+    messages Message[]
+    Users    ChatsOnUsers[]
+}
+
+model ChatsOnUsers {
+    user   User   @relation(fields: [userId], references: [id])
+    userId String
+
+    chat   Chat   @relation(fields: [chatId], references: [id])
+    chatId String
+
+    @@id([userId, chatId])
 }
 
 model Message {
@@ -63,14 +78,4 @@ model Message {
 
     Chat   Chat?  @relation(fields: [chatId], references: [id])
     chatId String
-}
-
-model Chat {
-    id       String    @id @default(cuid())
-    messages Message[]
-
-    User   User   @relation(fields: [userId], references: [id])
-    userId String
-
-    toUser String
 }
