@@ -41,7 +41,7 @@ const TopBar: FC<{ image: string | null | undefined }> = ({ image }) => {
           {/* Menu options */}
           {showOptionsMenu && (
             <>
-              <div className='absolute right-9 top-11 w-max  rounded border border-themePrimary-200/50 bg-baseBackground/60 '>
+              <div className='absolute right-9 top-11 w-max  rounded border border-themePrimary-200/50 bg-baseBackground-500/60 '>
                 <div className='navbar-menuitems mt-2'>New Chat</div>
                 <Link href={'/settings'}>
                   <div className='navbar-menuitems'>Settings</div>

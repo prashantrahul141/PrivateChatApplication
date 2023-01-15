@@ -9,7 +9,7 @@
 @layer base {
   html,
   body {
-    @apply bg-baseBackground;
+    @apply bg-baseBackground-500;
   }
 }
 
@@ -24,5 +24,9 @@
 
   .navbar-menuitems {
     @apply flex h-8 cursor-pointer items-center justify-center px-5 font-ubuntu text-base text-themePrimary-50/60 hover:bg-themePrimary-300 hover:text-themePrimary-50;
+  }
+
+  .input {
+    @apply block w-full rounded-md border border-slate-300/20 bg-baseBackground-400 px-3 py-2 font-ubuntu text-sm text-themePrimary-50 placeholder-slate-400 shadow-sm focus:border-themePrimary-200 focus:outline-none focus:ring-1 focus:ring-themePrimary-300;
   }
 }
