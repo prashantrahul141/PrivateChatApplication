@@ -21,4 +21,8 @@
   .btn-signin {
     @apply btn my-3 w-full border border-themePrimary-200 bg-transparent text-base hover:bg-themePrimary-300 hover:text-themePrimary-900 sm:w-64;
   }
+
+  .navbar-menuitems {
+    @apply flex h-8 cursor-pointer items-center justify-center px-5 font-ubuntu text-base text-themePrimary-50/60 hover:bg-themePrimary-300 hover:text-themePrimary-50;
+  }
 }
