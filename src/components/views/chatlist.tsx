@@ -1,6 +1,5 @@
 import type { FC } from 'react';
-import type { ChatsOnUsers, User } from '@prisma/client';
-import type { TypeChatList } from 'src/types/types';
+import type { TypeChatList, filterTypeChatList } from 'src/types/types';
 import ErrorAlert from '@components/common/erroralert';
 import Loading from '@components/common/loading';
 import ChatListSearch from '@components/forms/chatlistsearch';
@@ -23,12 +22,7 @@ const ChatList: FC = () => {
   const [chatList, setChatlist] = useState<TypeChatList>([]);
   const [filterTerm, setFilterTerm] = useState('');
 
-  const filterUser = (
-    data: (ChatsOnUsers & {
-      user: User;
-    })[],
-    avoidUserid: string
-  ) => {
+  const filterUser = (data: filterTypeChatList, avoidUserid: string) => {
     data.forEach((_each) => {
       if (_each.user.id !== avoidUserid) {
         return _each;
