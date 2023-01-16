@@ -4,15 +4,19 @@ import { useSession } from 'next-auth/react';
 import HeadComp from '@components/common/headcomponent';
 import Welcome from '@components/home/welcome';
 import ChatList from '@components/views/chatlist';
+import TopBar from '@components/common/topbar';
 
 const Home: NextPage = () => {
-  const { status } = useSession();
+  const { data: session, status } = useSession();
 
   if (status === 'authenticated') {
     return (
       <>
         <HeadComp headTitle='Home'></HeadComp>
-        <ChatList></ChatList>
+        <TopBar image={session?.user?.image}></TopBar>
+        <div className='flex h-screen w-screen justify-center'>
+          <ChatList></ChatList>
+        </div>
       </>
     );
   } else if (status === 'unauthenticated') {
