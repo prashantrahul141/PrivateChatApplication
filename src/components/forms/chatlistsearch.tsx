@@ -4,8 +4,9 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const ChatListSearch: FC<{
+  searchCallbackFun: ({ _filterTerm }: { _filterTerm: string }) => void;
   createCallbackFunc: ({ userId }: { userId: string }) => Promise<void>;
-}> = ({ createCallbackFunc }) => {
+}> = ({ searchCallbackFun, createCallbackFunc }) => {
   const [showToolTip, setShowToolTip] = useState(false);
   const [showCreateChat, setShowCreateChat] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -20,7 +21,13 @@ const ChatListSearch: FC<{
       <div className='flex justify-center px-4 sm:px-0'>
         {/* search input */}
         <div className='mr-4 max-w-sm flex-auto'>
-          <input className='input' placeholder='Search' type={'text'}></input>
+          <input
+            className='input'
+            placeholder='Search'
+            type={'text'}
+            onChange={(e) =>
+              searchCallbackFun({ _filterTerm: e.target.value.trim() })
+            }></input>
         </div>
 
         {/* new chat button */}
