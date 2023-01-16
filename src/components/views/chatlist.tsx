@@ -78,7 +78,7 @@ const ChatList: FC = () => {
     };
     return (
       <>
-        <div className='mt-24 h-max w-full max-w-xl'>
+        <div className='h-max w-full max-w-xl'>
           <ChatListSearch createCallbackFunc={createChat}></ChatListSearch>
 
           <div className='mt-8 h-full w-full border border-red-200/0'>
