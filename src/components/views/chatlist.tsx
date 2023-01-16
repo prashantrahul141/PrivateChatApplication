@@ -1,32 +1,26 @@
+import type { FC } from 'react';
+import type { ChatsOnUsers, User } from '@prisma/client';
+import type { TypeChatList } from 'src/types/types';
 import ErrorAlert from '@components/common/erroralert';
 import Loading from '@components/common/loading';
 import ChatListSearch from '@components/forms/chatlistsearch';
-import type { Chat, ChatsOnUsers, Message, User } from '@prisma/client';
 import { api } from '@utils/api';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import type { FC } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
 const ChatList: FC = () => {
   const querychatlist = api.main.getChatList.useQuery();
   const createChatMutation = api.main.createChat.useMutation();
+  const router = useRouter();
 
   const { data: session } = useSession();
   const [showUserNotFoundError, setShowUserNotFoundError] = useState(false);
-  const [chatList, setChatlist] = useState<
-    (Chat & {
-      messages: Message[];
-      Users: (ChatsOnUsers & {
-        user: User;
-      })[];
-    })[]
-  >([]);
-
-  const router = useRouter();
+  const [chatList, setChatlist] = useState<TypeChatList>([]);
+  const [filterTerm, setFilterTerm] = useState('');
 
   const filterUser = (
     data: (ChatsOnUsers & {
@@ -76,10 +70,15 @@ const ChatList: FC = () => {
         setChatlist([...chatList, createdChat.createdChat]);
       }
     };
+
     return (
       <>
         <div className='h-max w-full max-w-xl'>
-          <ChatListSearch createCallbackFunc={createChat}></ChatListSearch>
+          <ChatListSearch
+            searchCallbackFun={({ _filterTerm }: { _filterTerm: string }) => {
+              setFilterTerm(_filterTerm);
+            }}
+            createCallbackFunc={createChat}></ChatListSearch>
 
           <div className='mt-8 h-full w-full border border-red-200/0'>
             {/* Chat list */}
@@ -91,7 +90,10 @@ const ChatList: FC = () => {
                 );
                 if (
                   _each_chat_item.Users !== undefined &&
-                  thisChatUser !== undefined
+                  thisChatUser !== undefined &&
+                  thisChatUser.user.name
+                    .toLowerCase()
+                    .includes(filterTerm.toLowerCase())
                 ) {
                   const thisChatLastMessage = _each_chat_item.messages[0];
 
@@ -121,7 +123,7 @@ const ChatList: FC = () => {
                             </span>
                           </div>
                           <div>
-                            <span className='tracking-wide0 font-ubuntu'>
+                            <span className='font-ubuntu tracking-wide'>
                               {thisChatLastMessage
                                 ? thisChatLastMessage.text.length > 30
                                   ? thisChatLastMessage.text.slice(0, 30) +
