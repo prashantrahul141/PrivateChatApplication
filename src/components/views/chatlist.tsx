@@ -6,6 +6,7 @@ import { api } from '@utils/api';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -24,6 +25,8 @@ const ChatList: FC = () => {
       })[];
     })[]
   >([]);
+
+  const router = useRouter();
 
   // initial load
   useEffect(() => {
@@ -46,6 +49,11 @@ const ChatList: FC = () => {
 
       if (createdChat.status === 404) {
         setShowUserNotFoundError(true);
+      } else if (createdChat.status === 200) {
+        setShowUserNotFoundError(false);
+        void router.push(
+          `/chat/${createdChat.chatid ? createdChat.chatid : ''}`
+        );
       } else if (
         createdChat.status === 201 &&
         createdChat.createdChat !== undefined
@@ -65,13 +73,14 @@ const ChatList: FC = () => {
               chatList.map((_each_chat_item) => {
                 if (_each_chat_item.Users[1] !== undefined) {
                   const thisChatLastMessage = _each_chat_item.messages[0];
-                  const thisChatUser = _each_chat_item.Users[1];
+                  const thisChatUser =
+                    _each_chat_item.Users[0] || _each_chat_item.Users[1];
                   return (
                     <Link
                       href={`/chat/${_each_chat_item.id}`}
                       key={_each_chat_item.id}>
                       <div
-                        className={`group flex cursor-pointer items-center justify-center rounded-md border border-themePrimary-200/10 px-2 py-4 text-red-50 duration-75 ease-in-out hover:bg-baseBackground-400 ${
+                        className={`group mb-2 flex cursor-pointer items-center justify-center rounded-md border border-themePrimary-200/10 px-2 py-4 text-red-50 duration-75 ease-in-out hover:bg-baseBackground-400 ${
                           thisChatLastMessage?.seenByParticiapants
                             ? 'opacity-80'
                             : 'opacity-100'
