@@ -28,6 +28,20 @@ const ChatList: FC = () => {
 
   const router = useRouter();
 
+  const filterUser = (
+    data: (ChatsOnUsers & {
+      user: User;
+    })[],
+    avoidUserid: string
+  ) => {
+    data.forEach((_each) => {
+      if (_each.user.id !== avoidUserid) {
+        return _each;
+      }
+    });
+    return data[0] ? data[0] : data[1];
+  };
+
   // initial load
   useEffect(() => {
     if (querychatlist.isSuccess && querychatlist.data.chatlist !== undefined) {
@@ -71,10 +85,16 @@ const ChatList: FC = () => {
             {/* Chat list */}
             {chatList.length > 0 &&
               chatList.map((_each_chat_item) => {
-                if (_each_chat_item.Users[1] !== undefined) {
+                const thisChatUser = filterUser(
+                  _each_chat_item.Users,
+                  session?.user?.id || '#'
+                );
+                if (
+                  _each_chat_item.Users !== undefined &&
+                  thisChatUser !== undefined
+                ) {
                   const thisChatLastMessage = _each_chat_item.messages[0];
-                  const thisChatUser =
-                    _each_chat_item.Users[0] || _each_chat_item.Users[1];
+
                   return (
                     <Link
                       href={`/chat/${_each_chat_item.id}`}
@@ -90,6 +110,7 @@ const ChatList: FC = () => {
                             className='h-16 w-16 rounded-full'
                             src={thisChatUser.user.image}
                             width={64}
+                            priority={true}
                             height={64}
                             alt={thisChatUser.user.name}></Image>
                         </div>
