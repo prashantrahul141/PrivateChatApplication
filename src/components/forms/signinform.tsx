@@ -8,7 +8,7 @@ const SigninForm: FC = () => {
         <div>
           <button
             onClick={() => {
-              signIn('github');
+              void signIn('github');
             }}
             className='btn-signin'>
             Github
@@ -17,7 +17,7 @@ const SigninForm: FC = () => {
         <div>
           <button
             onClick={() => {
-              signIn('discord');
+              void signIn('discord');
             }}
             className='btn-signin'>
             Discord
@@ -26,7 +26,7 @@ const SigninForm: FC = () => {
         <div>
           <button
             onClick={() => {
-              signIn('google');
+              void signIn('google');
             }}
             className='btn-signin'>
             Google
