@@ -44,10 +44,10 @@ model VerificationToken {
 
 model User {
     id            String         @id @default(cuid())
-    name          String?
+    name          String         @default("User")
     email         String?        @unique
     emailVerified DateTime?
-    image         String?
+    image         String         @default("/static/defaultavatar.png")
     accounts      Account[]
     sessions      Session[]
     Chats         ChatsOnUsers[]
