@@ -38,17 +38,18 @@ const TopBar: FC<{ image: string | null | undefined }> = ({ image }) => {
           {/* Menu options */}
           <AnimatePresence>
             {showOptionsMenu && (
-              <div
-                className='fixed h-screen w-screen'
-                onClick={(e) => {
-                  const divElement = e.target as HTMLDivElement;
-                  console.log(divElement.id);
+              <>
+                <div
+                  className='fixed h-screen w-screen'
+                  onClick={(e) => {
+                    const divElement = e.target as HTMLDivElement;
+                    console.log(divElement.id);
 
-                  if (divElement.id === 'menuoptions-id') {
-                    setShowOptionsMenu(false);
-                  }
-                }}
-                id='menuoptions-id'>
+                    if (divElement.id === 'menuoptions-id') {
+                      setShowOptionsMenu(false);
+                    }
+                  }}
+                  id='menuoptions-id'></div>
                 <motion.div
                   key={'navbar-menuoptions'}
                   className='absolute right-9 top-11 w-max  rounded border border-themePrimary-200/50 bg-baseBackground-500/80'
@@ -73,7 +74,7 @@ const TopBar: FC<{ image: string | null | undefined }> = ({ image }) => {
                     Sign out
                   </div>
                 </motion.div>
-              </div>
+              </>
             )}
           </AnimatePresence>
         </div>
