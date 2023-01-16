@@ -9,6 +9,9 @@ export const mainRouter = createTRPCRouter({
         Users: { some: { userId: { equals: ctx.session.user.id } } },
       },
       include: {
+        messages: {
+          take: 1,
+        },
         Users: {
           include: {
             user: true,
@@ -45,6 +48,9 @@ export const mainRouter = createTRPCRouter({
           },
         },
         include: {
+          messages: {
+            take: 1,
+          },
           Users: {
             include: {
               user: true,
