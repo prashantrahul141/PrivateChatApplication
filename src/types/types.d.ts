@@ -1,12 +1,22 @@
-import type { Chat, ChatsOnUsers, Message, User } from '@prisma/client';
+import type { Chat, ChatsOnUsers, Message } from '@prisma/client';
 
 type TypeChatList = Array<
   Chat & {
     messages: Message[];
     Users: (ChatsOnUsers & {
-      user: User;
+      user: {
+        id: string;
+        name: string;
+        image: string;
+      };
     })[];
   }
 >;
 
-export { TypeChatList };
+type filterTypeChatList = Array<
+  ChatsOnUsers & {
+    user: { id: string; name: string; image: string };
+  }
+>;
+
+export { TypeChatList, filterTypeChatList };
