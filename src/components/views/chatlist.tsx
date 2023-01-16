@@ -64,37 +64,50 @@ const ChatList: FC = () => {
             {chatList.length > 0 &&
               chatList.map((_each_chat_item) => {
                 if (_each_chat_item.Users[1] !== undefined) {
+                  const thisChatLastMessage = _each_chat_item.messages[0];
+                  const thisChatUser = _each_chat_item.Users[1];
                   return (
                     <Link
                       href={`/chat/${_each_chat_item.id}`}
                       key={_each_chat_item.id}>
-                      <div className='group flex cursor-pointer items-center justify-center rounded-md border border-themePrimary-200/10 px-2 py-4 text-red-50 duration-75 ease-in-out hover:bg-baseBackground-400'>
+                      <div
+                        className={`group flex cursor-pointer items-center justify-center rounded-md border border-themePrimary-200/10 px-2 py-4 text-red-50 duration-75 ease-in-out hover:bg-baseBackground-400 ${
+                          thisChatLastMessage?.seenByParticiapants
+                            ? 'opacity-80'
+                            : 'opacity-100'
+                        } hover:opacity-100`}>
                         <div className='ml-2'>
                           <Image
-                            className='h-16 w-16 rounded-full opacity-80 group-hover:opacity-100'
-                            src={_each_chat_item.Users[1].user.image}
+                            className='h-16 w-16 rounded-full'
+                            src={thisChatUser.user.image}
                             width={64}
                             height={64}
-                            alt={_each_chat_item.Users[1].user.name}></Image>
+                            alt={thisChatUser.user.name}></Image>
                         </div>
                         <div className='ml-4 flex-auto'>
                           <div className=''>
-                            <span className='font-ubuntu text-xl font-semibold tracking-wider text-themePrimary-50/80 group-hover:text-themePrimary-50'>
-                              {_each_chat_item.Users[1].user.name}
+                            <span className='font-ubuntu text-xl font-semibold tracking-wide'>
+                              {thisChatUser.user.name}
                             </span>
                           </div>
                           <div>
-                            <span className='font-ubuntu tracking-wide text-themePrimary-50/60 group-hover:text-themePrimary-50/90'>
-                              {_each_chat_item.messages[0]
-                                ? _each_chat_item.messages[0].text.length > 30
-                                  ? _each_chat_item.messages[0].text.slice(
-                                      0,
-                                      30
-                                    ) + '...'
-                                  : _each_chat_item.messages[0].text
+                            <span className='tracking-wide0 font-ubuntu'>
+                              {thisChatLastMessage
+                                ? thisChatLastMessage.text.length > 30
+                                  ? thisChatLastMessage.text.slice(0, 30) +
+                                    '...'
+                                  : thisChatLastMessage.text
                                 : ''}
                             </span>
                           </div>
+                        </div>
+                        <div>
+                          {thisChatLastMessage !== undefined &&
+                            !thisChatLastMessage.seenByParticiapants && (
+                              <div className='mr-2 flex h-6 w-6 items-center justify-center rounded-full bg-themePrimary-400 text-base'>
+                                1
+                              </div>
+                            )}
                         </div>
                       </div>
                     </Link>
