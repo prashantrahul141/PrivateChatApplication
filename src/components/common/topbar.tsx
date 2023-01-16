@@ -54,7 +54,7 @@ const TopBar: FC<{ image: string | null | undefined }> = ({ image }) => {
                 <div
                   className='navbar-menuitems mb-2'
                   onClick={() => {
-                    signOut();
+                    void signOut();
                   }}>
                   Sign out
                 </div>
