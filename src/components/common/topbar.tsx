@@ -10,7 +10,7 @@ const TopBar: FC<{ image: string | null | undefined }> = ({ image }) => {
   return (
     <>
       <div
-        className='fixed left-0 top-0 flex h-12 w-screen justify-center border-b border-b-themePrimary-100/20 backdrop-blur-lg'
+        className='fixed left-0 top-0 z-30 flex h-12 w-screen justify-center border-b border-b-themePrimary-100/20 backdrop-blur-lg'
         onMouseLeave={() => {
           setShowOptionsMenu(false);
         }}>
@@ -41,7 +41,7 @@ const TopBar: FC<{ image: string | null | undefined }> = ({ image }) => {
           {/* Menu options */}
           {showOptionsMenu && (
             <>
-              <div className='absolute right-9 top-11 w-max  rounded border border-themePrimary-200/50 bg-baseBackground-500/60 '>
+              <div className='absolute right-9 top-11 w-max  rounded border border-themePrimary-200/50 bg-baseBackground-500/80 '>
                 <Link href={'/'}>
                   <div className='navbar-menuitems mt-2'>Home</div>
                 </Link>
