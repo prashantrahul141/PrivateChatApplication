@@ -61,7 +61,7 @@ const ChatListSearch: FC<{
           }}
           id='backdrop-id'
           className='fixed top-0 left-0 z-40 flex h-full w-full items-center justify-center backdrop-blur-sm backdrop-brightness-75'>
-          <div className='z-50 mx-1 h-max w-full max-w-lg rounded-md bg-baseBackground-400 px-2 py-7'>
+          <div className='z-50 mx-1 h-max w-full max-w-lg rounded-md bg-baseBackground-400 px-4 py-7'>
             <div className='mb-8'>
               <span className='font-ubuntu text-lg text-themePrimary-50'>
                 Create new chat
@@ -83,7 +83,7 @@ const ChatListSearch: FC<{
             </div>
             <div className='flex items-center justify-center gap-3'>
               <div className='mr-auto'>
-                <span className='ml-2 font-ubuntu text-base text-themePrimary-50/70'>
+                <span className='ml-1 font-ubuntu text-base text-themePrimary-50/70'>
                   or send&nbsp;
                   <span
                     onClick={() => {
