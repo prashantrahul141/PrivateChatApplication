@@ -72,4 +72,21 @@ export const mainRouter = createTRPCRouter({
 
       return { status: 201, createdChat };
     }),
+
+  getChat: protectedProcedure
+    .input(z.object({ chatid: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const foundChat = await prisma.chat.findUnique({
+        where: {
+          id: input.chatid,
+        },
+        include: {
+          messages: true,
+          Users: true,
+        },
+      });
+      console.log(foundChat);
+
+      return {};
+    }),
 });
