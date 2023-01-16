@@ -14,7 +14,7 @@ const Home: NextPage = () => {
       <>
         <HeadComp headTitle='Home'></HeadComp>
         <TopBar image={session?.user?.image}></TopBar>
-        <div className='flex h-screen w-screen justify-center'>
+        <div className='flex h-screen w-screen justify-center pt-24'>
           <ChatList></ChatList>
         </div>
       </>
