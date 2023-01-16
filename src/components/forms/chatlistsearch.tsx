@@ -60,8 +60,8 @@ const ChatListSearch: FC<{
             }
           }}
           id='backdrop-id'
-          className='fixed top-0 left-0 z-50 flex h-screen w-screen items-center justify-center backdrop-blur-sm backdrop-brightness-75'>
-          <div className='h-max w-full max-w-lg rounded-md bg-baseBackground-400 p-4 py-7'>
+          className='fixed top-0 left-0 z-40 flex h-full w-full items-center justify-center backdrop-blur-sm backdrop-brightness-75'>
+          <div className='z-50 mx-1 h-max w-full max-w-lg rounded-md bg-baseBackground-400 px-2 py-7'>
             <div className='mb-8'>
               <span className='font-ubuntu text-lg text-themePrimary-50'>
                 Create new chat
