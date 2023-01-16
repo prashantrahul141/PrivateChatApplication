@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const ChatList: FC = () => {
   const querychatlist = api.main.getChatList.useQuery();
@@ -81,71 +82,77 @@ const ChatList: FC = () => {
             createCallbackFunc={createChat}></ChatListSearch>
 
           <div className='mt-8 h-full w-full border border-red-200/0'>
-            {/* Chat list */}
-            {chatList.length > 0 &&
-              chatList.map((_each_chat_item) => {
-                const thisChatUser = filterUser(
-                  _each_chat_item.Users,
-                  session?.user?.id || '#'
-                );
-                if (
-                  _each_chat_item.Users !== undefined &&
-                  thisChatUser !== undefined &&
-                  thisChatUser.user.name
-                    .toLowerCase()
-                    .includes(filterTerm.toLowerCase())
-                ) {
-                  const thisChatLastMessage = _each_chat_item.messages[0];
+            <AnimatePresence>
+              {/* Chat list */}
+              {chatList.length > 0 &&
+                chatList.map((_each_chat_item) => {
+                  const thisChatUser = filterUser(
+                    _each_chat_item.Users,
+                    session?.user?.id || '#'
+                  );
+                  if (
+                    _each_chat_item.Users !== undefined &&
+                    thisChatUser !== undefined &&
+                    thisChatUser.user.name
+                      .toLowerCase()
+                      .includes(filterTerm.toLowerCase())
+                  ) {
+                    const thisChatLastMessage = _each_chat_item.messages[0];
 
-                  return (
-                    <Link
-                      href={`/chat/${_each_chat_item.id}`}
-                      key={_each_chat_item.id}>
-                      <div
-                        className={`group mb-2 flex cursor-pointer items-center justify-center rounded-md border border-themePrimary-200/10 px-2 py-4 text-red-50 duration-75 ease-in-out hover:bg-baseBackground-400 ${
-                          thisChatLastMessage?.seenByParticiapants
-                            ? 'opacity-80'
-                            : 'opacity-100'
-                        } hover:opacity-100`}>
-                        <div className='ml-2'>
-                          <Image
-                            className='h-16 w-16 rounded-full'
-                            src={thisChatUser.user.image}
-                            width={64}
-                            priority={true}
-                            height={64}
-                            alt={thisChatUser.user.name}></Image>
-                        </div>
-                        <div className='ml-4 flex-auto'>
-                          <div className=''>
-                            <span className='font-ubuntu text-xl font-semibold tracking-wide'>
-                              {thisChatUser.user.name}
-                            </span>
+                    return (
+                      <Link
+                        key={_each_chat_item.id}
+                        href={`/chat/${_each_chat_item.id}`}>
+                        <motion.div
+                          className={`group mb-2 flex cursor-pointer items-center justify-center rounded-md border border-themePrimary-200/10 px-2 py-4 text-red-50 duration-75 ease-in-out hover:bg-baseBackground-400 ${
+                            thisChatLastMessage?.seenByParticiapants
+                              ? 'opacity-80'
+                              : 'opacity-100'
+                          } hover:opacity-100`}
+                          initial={{ opacity: 0, marginTop: 16 }}
+                          animate={{ opacity: 1, marginTop: 0 }}
+                          exit={{ opacity: 0, marginTop: 16 }}
+                          transition={{ duration: 0.25, ease: 'easeIn' }}>
+                          <div className='ml-2'>
+                            <Image
+                              className='h-16 w-16 rounded-full'
+                              src={thisChatUser.user.image}
+                              width={64}
+                              priority={true}
+                              height={64}
+                              alt={thisChatUser.user.name}></Image>
+                          </div>
+                          <div className='ml-4 flex-auto'>
+                            <div className=''>
+                              <span className='font-ubuntu text-xl font-semibold tracking-wide'>
+                                {thisChatUser.user.name}
+                              </span>
+                            </div>
+                            <div>
+                              <span className='font-ubuntu tracking-wide'>
+                                {thisChatLastMessage
+                                  ? thisChatLastMessage.text.length > 30
+                                    ? thisChatLastMessage.text.slice(0, 30) +
+                                      '...'
+                                    : thisChatLastMessage.text
+                                  : ''}
+                              </span>
+                            </div>
                           </div>
                           <div>
-                            <span className='font-ubuntu tracking-wide'>
-                              {thisChatLastMessage
-                                ? thisChatLastMessage.text.length > 30
-                                  ? thisChatLastMessage.text.slice(0, 30) +
-                                    '...'
-                                  : thisChatLastMessage.text
-                                : ''}
-                            </span>
+                            {thisChatLastMessage !== undefined &&
+                              !thisChatLastMessage.seenByParticiapants && (
+                                <div className='mr-2 flex h-6 w-6 items-center justify-center rounded-full bg-themePrimary-400 text-base'>
+                                  1
+                                </div>
+                              )}
                           </div>
-                        </div>
-                        <div>
-                          {thisChatLastMessage !== undefined &&
-                            !thisChatLastMessage.seenByParticiapants && (
-                              <div className='mr-2 flex h-6 w-6 items-center justify-center rounded-full bg-themePrimary-400 text-base'>
-                                1
-                              </div>
-                            )}
-                        </div>
-                      </div>
-                    </Link>
-                  );
-                }
-              })}
+                        </motion.div>
+                      </Link>
+                    );
+                  }
+                })}
+            </AnimatePresence>
           </div>
 
           {/* chat list when no chats is available */}
