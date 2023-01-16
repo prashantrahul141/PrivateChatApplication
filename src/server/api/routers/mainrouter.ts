@@ -3,6 +3,7 @@ import { createTRPCRouter, protectedProcedure } from '../trpc';
 import { prisma } from 'src/server/db';
 
 export const mainRouter = createTRPCRouter({
+  // returns the chat list of a user.
   getChatList: protectedProcedure.query(async ({ ctx }) => {
     const data = await prisma.chat.findMany({
       where: {
@@ -14,7 +15,13 @@ export const mainRouter = createTRPCRouter({
         },
         Users: {
           include: {
-            user: true,
+            user: {
+              select: {
+                id: true,
+                name: true,
+                image: true,
+              },
+            },
           },
         },
       },
@@ -26,6 +33,8 @@ export const mainRouter = createTRPCRouter({
     return { status: 404 };
   }),
 
+  // creates a new chat
+  // returns the new created chat.
   createChat: protectedProcedure
     .input(z.object({ userId: z.string() }))
     .mutation(async ({ input, ctx }) => {
@@ -64,7 +73,13 @@ export const mainRouter = createTRPCRouter({
           },
           Users: {
             include: {
-              user: true,
+              user: {
+                select: {
+                  id: true,
+                  name: true,
+                  image: true,
+                },
+              },
             },
           },
         },
@@ -73,7 +88,8 @@ export const mainRouter = createTRPCRouter({
       return { status: 201, createdChat };
     }),
 
-  getChat: protectedProcedure
+  // returns messages for a chat
+  getInitialChat: protectedProcedure
     .input(z.object({ chatid: z.string() }))
     .query(async ({ ctx, input }) => {
       const foundChat = await prisma.chat.findUnique({
@@ -82,10 +98,20 @@ export const mainRouter = createTRPCRouter({
         },
         include: {
           messages: true,
-          Users: true,
+          Users: {
+            include: {
+              user: {
+                select: {
+                  id: true,
+                  name: true,
+                  image: true,
+                },
+              },
+            },
+          },
         },
       });
-      console.log(foundChat);
+      console.log(foundChat?.Users[0]?.user);
 
       return {};
     }),
