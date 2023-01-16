@@ -71,7 +71,7 @@ model ChatsOnUsers {
 
 model Message {
     id   String @id @default(cuid())
-    text String
+    text String @default(" ")
 
     createdOn           DateTime @default(now())
     seenByParticiapants Boolean  @default(false)
