@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const TopBar: FC<{ image: string | null | undefined }> = ({ image }) => {
   const [showOptionsMenu, setShowOptionsMenu] = useState(false);
@@ -39,9 +40,15 @@ const TopBar: FC<{ image: string | null | undefined }> = ({ image }) => {
             </span>
           </div>
           {/* Menu options */}
-          {showOptionsMenu && (
-            <>
-              <div className='absolute right-9 top-11 w-max  rounded border border-themePrimary-200/50 bg-baseBackground-500/80 '>
+          <AnimatePresence>
+            {showOptionsMenu && (
+              <motion.div
+                key={'navbar-menuoptions'}
+                className='absolute right-9 top-11 w-max  rounded border border-themePrimary-200/50 bg-baseBackground-500/80'
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0 }}
+                transition={{ type: 'spring', duration: 0.2 }}>
                 <Link href={'/'}>
                   <div className='navbar-menuitems mt-2'>Home</div>
                 </Link>
@@ -58,9 +65,9 @@ const TopBar: FC<{ image: string | null | undefined }> = ({ image }) => {
                   }}>
                   Sign out
                 </div>
-              </div>
-            </>
-          )}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </>
