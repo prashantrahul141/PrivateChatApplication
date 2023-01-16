@@ -1,7 +1,7 @@
 import ErrorAlert from '@components/common/erroralert';
 import Loading from '@components/common/loading';
 import ChatListSearch from '@components/forms/chatlistsearch';
-import type { Chat, ChatsOnUsers, User } from '@prisma/client';
+import type { Chat, ChatsOnUsers, Message, User } from '@prisma/client';
 import { api } from '@utils/api';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
@@ -18,6 +18,7 @@ const ChatList: FC = () => {
   const [showUserNotFoundError, setShowUserNotFoundError] = useState(false);
   const [chatList, setChatlist] = useState<
     (Chat & {
+      messages: Message[];
       Users: (ChatsOnUsers & {
         user: User;
       })[];
@@ -66,7 +67,7 @@ const ChatList: FC = () => {
                   return (
                     <Link
                       href={`/chat/${_each_chat_item.id}`}
-                      key={_each_chat_item.Users[1].chatId}>
+                      key={_each_chat_item.id}>
                       <div className='group flex cursor-pointer items-center justify-center rounded-md border border-themePrimary-200/10 px-2 py-4 text-red-50 duration-75 ease-in-out hover:bg-baseBackground-400'>
                         <div className='ml-2'>
                           <Image
@@ -84,7 +85,14 @@ const ChatList: FC = () => {
                           </div>
                           <div>
                             <span className='font-ubuntu tracking-wide text-themePrimary-50/60 group-hover:text-themePrimary-50/90'>
-                              {_each_chat_item.id}
+                              {_each_chat_item.messages[0]
+                                ? _each_chat_item.messages[0].text.length > 30
+                                  ? _each_chat_item.messages[0].text.slice(
+                                      0,
+                                      30
+                                    ) + '...'
+                                  : _each_chat_item.messages[0].text
+                                : ''}
                             </span>
                           </div>
                         </div>
