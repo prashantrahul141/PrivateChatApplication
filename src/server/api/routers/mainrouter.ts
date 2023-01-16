@@ -41,6 +41,17 @@ export const mainRouter = createTRPCRouter({
         };
       }
 
+      const alreadyExisitingChat = await prisma.chat.findFirst({
+        where: { Users: { some: { userId: { equals: input.userId } } } },
+      });
+
+      if (alreadyExisitingChat) {
+        return {
+          status: 200,
+          chatid: alreadyExisitingChat.id,
+        };
+      }
+
       const createdChat = await prisma.chat.create({
         data: {
           Users: {
