@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const ChatList: FC = () => {
+const ChatList: FC<{ activatedChatId?: string }> = ({ activatedChatId }) => {
   const querychatlist = api.main.getChatList.useQuery();
   const createChatMutation = api.main.createChat.useMutation();
   const router = useRouter();
@@ -98,7 +98,11 @@ const ChatList: FC = () => {
                         key={_each_chat_item.id}
                         href={`/chat/${_each_chat_item.id}`}>
                         <motion.div
-                          className={`group mb-2 flex cursor-pointer items-center justify-center rounded-md border border-themePrimary-200/10 px-2 py-4 text-red-50 duration-75 ease-in-out hover:bg-baseBackground-400 ${
+                          className={`group mb-2 flex cursor-pointer items-center justify-center rounded-md border border-themePrimary-200/10 px-2 py-4 text-red-50 duration-75 ease-in-out ${
+                            activatedChatId === _each_chat_item.id
+                              ? 'bg-baseBackground-400'
+                              : 'hover:bg-baseBackground-400'
+                          } ${
                             thisChatLastMessage?.seenByParticiapants
                               ? 'opacity-80'
                               : 'opacity-100'
