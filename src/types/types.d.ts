@@ -19,4 +19,18 @@ type filterTypeChatList = Array<
   }
 >;
 
-export { TypeChatList, filterTypeChatList };
+type MessageStateList = Array<{
+  status: number;
+  foundChat: Chat & {
+    messages: Message[];
+    Users: (ChatsOnUsers & {
+      user: {
+        id: string;
+        name: string;
+        image: string;
+      };
+    })[];
+  };
+}>;
+
+export { TypeChatList, filterTypeChatList, MessageStateList };
