@@ -1,4 +1,3 @@
-import HeadComp from '@components/common/headcomponent';
 import Loading from '@components/common/loading';
 import TopBar from '@components/common/topbar';
 import ChatList from '@components/views/chatlist';
@@ -24,7 +23,6 @@ const Chat: NextPage<{ chatid: string }> = ({ chatid }) => {
   if (status === 'authenticated') {
     return (
       <>
-        <HeadComp></HeadComp>
         <TopBar image={session.user?.image}></TopBar>
         <div className='flex h-screen w-screen items-center justify-center overflow-x-hidden overflow-y-hidden px-4 '>
           <div className='mt-32 flex w-full max-w-6xl gap-4 '>
