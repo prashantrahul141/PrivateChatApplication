@@ -11,6 +11,9 @@ export const mainRouter = createTRPCRouter({
       },
       include: {
         messages: {
+          orderBy: {
+            createdOn: 'desc',
+          },
           take: 1,
         },
         Users: {
