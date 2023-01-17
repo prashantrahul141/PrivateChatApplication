@@ -89,6 +89,7 @@ export const mainRouter = createTRPCRouter({
     }),
 
   // returns messages for a chat
+  // for initial load
   getInitialChat: protectedProcedure
     .input(z.object({ chatid: z.string() }))
     .query(async ({ ctx, input }) => {
@@ -111,8 +112,67 @@ export const mainRouter = createTRPCRouter({
           },
         },
       });
-      console.log(foundChat?.Users[0]?.user);
 
-      return {};
+      if (!foundChat) {
+        return { status: 404 };
+      }
+      let isAuthed = false;
+      foundChat.Users.forEach((eachUser) => {
+        if (eachUser.userId === ctx.session.user.id) {
+          isAuthed = true;
+        }
+      });
+
+      if (isAuthed) {
+        return { status: 200, foundChat };
+      }
+
+      return { status: 403 };
+    }),
+
+  // creates a message in db
+  // and returns it
+  sendMessage: protectedProcedure
+    .input(z.object({ text: z.string(), chatId: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      const foundChat = await prisma.chat.findUnique({
+        where: {
+          id: input.chatId,
+        },
+        include: {
+          Users: {
+            include: {
+              user: {
+                select: {
+                  id: true,
+                },
+              },
+            },
+          },
+        },
+      });
+      if (!foundChat) {
+        return { status: 403 };
+      }
+
+      let isAuthed = false;
+      foundChat.Users.forEach((eachUser) => {
+        if (eachUser.userId === ctx.session.user.id) {
+          isAuthed = true;
+        }
+      });
+
+      if (isAuthed) {
+        const createdMessage = await prisma.message.create({
+          data: {
+            authorId: ctx.session.user.id,
+            text: input.text,
+            chatId: input.chatId,
+          },
+        });
+
+        return { status: 201, createdMessage };
+      }
+      return { status: 403 };
     }),
 });
