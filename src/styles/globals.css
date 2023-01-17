@@ -27,6 +27,6 @@
   }
 
   .input {
-    @apply block w-full rounded-md border border-slate-300/20 bg-baseBackground-400 px-3 py-2 font-ubuntu text-sm text-themePrimary-50 placeholder-slate-400 shadow-sm focus:border-themePrimary-200 focus:outline-none focus:ring-1 focus:ring-themePrimary-300;
+    @apply block w-full select-none rounded-md border border-slate-300/20 bg-baseBackground-400 px-3 py-2 font-ubuntu text-sm text-themePrimary-50 placeholder-slate-400 shadow-sm focus:border-themePrimary-200 focus:outline-none focus:ring-1 focus:ring-themePrimary-300;
   }
 }
