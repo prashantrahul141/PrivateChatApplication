@@ -24,14 +24,14 @@ const Chat: NextPage<{ chatid: string }> = ({ chatid }) => {
   if (status === 'authenticated') {
     return (
       <>
-        <HeadComp headTitle='sd'></HeadComp>
+        <HeadComp></HeadComp>
         <TopBar image={session.user?.image}></TopBar>
-        <div className='flex h-screen w-screen items-center justify-center '>
-          <div className='flex w-full max-w-6xl gap-4'>
+        <div className='flex h-screen w-screen items-center justify-center overflow-x-hidden overflow-y-hidden px-4 '>
+          <div className='mt-32 flex w-full max-w-6xl gap-4 '>
             <div className='hidden flex-auto md:block'>
-              <ChatList></ChatList>
+              <ChatList activatedChatId={chatid}></ChatList>
             </div>
-            <div className='flex-auto'>
+            <div className='h-screen flex-auto pb-48'>
               <MessageList
                 userId={session.user?.id ?? '#'}
                 chatid={chatid}></MessageList>
