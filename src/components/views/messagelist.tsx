@@ -41,7 +41,6 @@ const MessageList: FC<{ userId: string; chatid: string }> = ({
     initalChatQuery.data?.foundChat !== undefined
   ) {
     // call back function to create new chat
-
     const callback = async (text: string) => {
       const createdMessage = await sendMessageMutation.mutateAsync({
         chatId: chatid,
