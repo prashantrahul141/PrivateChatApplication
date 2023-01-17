@@ -5,6 +5,8 @@ import { api } from '@utils/api';
 import type { FC } from 'react';
 import { useState } from 'react';
 import EachMessageComponent from './eachmessagecomponent';
+import Image from 'next/image';
+import HeadComp from '@components/common/headcomponent';
 
 const MessageList: FC<{ userId: string; chatid: string }> = ({
   userId,
@@ -13,17 +15,26 @@ const MessageList: FC<{ userId: string; chatid: string }> = ({
   const initalChatQuery = api.main.getInitialChat.useQuery({ chatid });
   const sendMessageMutation = api.main.sendMessage.useMutation();
   const [messages, setMessages] = useState<Array<Message>>([]);
+  const [participantInfo, setParticipantInfo] = useState<{
+    name: string;
+    image: string;
+  }>({ name: 'Unknown', image: '/static/defaultavatar.png' });
 
   // initial data load.
   useState(() => {
     if (
       initalChatQuery.isSuccess &&
-      initalChatQuery.data.foundChat !== undefined
+      initalChatQuery.data.foundChat !== undefined &&
+      initalChatQuery.data.foundChat.Users[0] !== undefined
     ) {
       setMessages(initalChatQuery.data.foundChat.messages);
+      setParticipantInfo({
+        name: initalChatQuery.data.foundChat.Users[0].user.name,
+        image: initalChatQuery.data.foundChat.Users[0].user.image,
+      });
     }
     // @ts-ignore
-  }, [initalChatQuery.isFetched]);
+  }, [initalChatQuery.isSuccess, initalChatQuery.isFetchedAfterMount]);
 
   if (
     initalChatQuery.isFetched &&
@@ -43,9 +54,22 @@ const MessageList: FC<{ userId: string; chatid: string }> = ({
         setMessages([...messages, createdMessage.createdMessage]);
       }
     };
+
     return (
-      <div className='w-full'>
-        <div>
+      <div className='h-full w-full'>
+        <HeadComp headTitle={participantInfo.name}></HeadComp>
+        <div className='flex items-center justify-center rounded-t-md border-b border-b-black bg-baseBackground-400 py-2'>
+          <Image
+            className='ml-4 mr-4 rounded-full border border-themePrimary-300'
+            src={participantInfo.image}
+            alt={participantInfo.name}
+            width={40}
+            height={40}></Image>
+          <span className='mr-auto font-righteous text-xl tracking-wider text-themePrimary-50'>
+            {participantInfo.name}
+          </span>
+        </div>
+        <div className='h-full'>
           <EachMessageComponent
             userId={userId}
             _messages={messages}></EachMessageComponent>
