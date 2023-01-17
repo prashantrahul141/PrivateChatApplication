@@ -26,13 +26,15 @@ const Chat: NextPage<{ chatid: string }> = ({ chatid }) => {
       <>
         <HeadComp headTitle='sd'></HeadComp>
         <TopBar image={session.user?.image}></TopBar>
-        <div className='flex h-screen w-screen items-center justify-center'>
-          <div className='flex w-max border border-red-200'>
-            <div className='hidden lg:block'>
+        <div className='flex h-screen w-screen items-center justify-center '>
+          <div className='flex w-full max-w-6xl gap-4'>
+            <div className='hidden flex-auto md:block'>
               <ChatList></ChatList>
             </div>
-            <div>
-              <MessageList chatid={chatid}></MessageList>
+            <div className='flex-auto'>
+              <MessageList
+                userId={session.user?.id ?? '#'}
+                chatid={chatid}></MessageList>
             </div>
           </div>
         </div>
