@@ -3,6 +3,7 @@ import MessageForm from '@components/forms/messagesendform';
 import type { Message } from '@prisma/client';
 import { api } from '@utils/api';
 import type { FC } from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import EachMessageComponent from './eachmessagecomponent';
 import Image from 'next/image';
@@ -35,7 +36,7 @@ const MessageList: FC<{ userId: string; chatid: string }> = ({
   };
 
   // initial render
-  setTimeout(getChatCallBack, 100);
+  useEffect(getChatCallBack, [initalChatQuery.isSuccess]);
 
   if (
     initalChatQuery.isFetched &&
