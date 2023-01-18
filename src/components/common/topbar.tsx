@@ -43,7 +43,6 @@ const TopBar: FC<{ image: string | null | undefined }> = ({ image }) => {
                   className='fixed h-screen w-screen'
                   onClick={(e) => {
                     const divElement = e.target as HTMLDivElement;
-                    console.log(divElement.id);
 
                     if (divElement.id === 'menuoptions-id') {
                       setShowOptionsMenu(false);
