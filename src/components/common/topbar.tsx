@@ -59,12 +59,12 @@ const TopBar: FC<{ image: string | null | undefined }> = ({ image }) => {
                   <Link href={'/'}>
                     <div className='navbar-menuitems mt-2'>Home</div>
                   </Link>
-                  <Link href={'/settings'}>
+                  {/* <Link href={'/settings'}>
                     <div className='navbar-menuitems'>Settings</div>
                   </Link>
                   <Link href={'/about'}>
                     <div className='navbar-menuitems'>About</div>
-                  </Link>
+                  </Link> */}
                   <div
                     className='navbar-menuitems mb-2'
                     onClick={() => {
