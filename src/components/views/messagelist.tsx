@@ -36,7 +36,11 @@ const MessageList: FC<{ userId: string; chatid: string }> = ({
   };
 
   // initial render
-  useEffect(getChatCallBack, [initalChatQuery.isSuccess]);
+  useEffect(
+    getChatCallBack,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [initalChatQuery.isSuccess]
+  );
 
   if (
     initalChatQuery.isFetched &&
