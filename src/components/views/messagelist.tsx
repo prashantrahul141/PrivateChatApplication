@@ -13,7 +13,10 @@ const MessageList: FC<{ userId: string; chatid: string }> = ({
   userId,
   chatid,
 }) => {
-  const initalChatQuery = api.main.getInitialChat.useQuery({ chatid });
+  const initalChatQuery = api.main.getInitialChat.useQuery(
+    { chatid },
+    { refetchInterval: 1000 }
+  );
   const sendMessageMutation = api.main.sendMessage.useMutation();
   const [messages, setMessages] = useState<Array<Message>>([]);
   const [participantInfo, setParticipantInfo] = useState<{
@@ -39,7 +42,7 @@ const MessageList: FC<{ userId: string; chatid: string }> = ({
   useEffect(
     getChatCallBack,
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [initalChatQuery.isSuccess]
+    [initalChatQuery.isFetching]
   );
 
   if (
