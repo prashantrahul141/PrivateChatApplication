@@ -13,7 +13,7 @@ const ChatListSearch: FC<{
   const [createInputValue, setCreateInputValue] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
-  const EXAMPLE_ID = 'clcxrnd720005vrroao5ys1ta';
+  const EXAMPLE_ID = 'cld1hgob30004vrgc1rft549m';
 
   return (
     <>
