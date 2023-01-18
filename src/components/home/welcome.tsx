@@ -29,11 +29,11 @@ const Welcome: FC = () => {
                 Sign up for free
               </button>
             </Link>
-            <Link href={'/about'} className='mx-3'>
+            {/* <Link href={'/about'} className='mx-3'>
               <button className='btn  h-max w-max border border-themePrimary-300  bg-transparent px-3 text-sm  capitalize hover:bg-themePrimary-300/10'>
                 Learn More
               </button>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>
