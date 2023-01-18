@@ -20,8 +20,7 @@ const MessageList: FC<{ userId: string; chatid: string }> = ({
     image: string;
   }>({ name: 'Unknown', image: '/static/defaultavatar.png' });
 
-  // initial data load.
-  useState(() => {
+  const getChatCallBack = () => {
     if (
       initalChatQuery.isSuccess &&
       initalChatQuery.data.foundChat !== undefined &&
@@ -33,8 +32,10 @@ const MessageList: FC<{ userId: string; chatid: string }> = ({
         image: initalChatQuery.data.foundChat.Users[0].user.image,
       });
     }
-    // @ts-ignore
-  }, [initalChatQuery.isSuccess, initalChatQuery.isFetchedAfterMount]);
+  };
+
+  // initial render
+  setTimeout(getChatCallBack, 100);
 
   if (
     initalChatQuery.isFetched &&
