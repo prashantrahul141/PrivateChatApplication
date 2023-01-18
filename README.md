@@ -58,7 +58,8 @@ npm run dev
 <img src="/public/static/meta/screenshot-3.png" alt="screenshot" width="500"/><br>
 <img src="/public/static/meta/screenshot-4.png" alt="screenshot" width="500"/><br>
 <img src="/public/static/meta/screenshot-5.png" alt="screenshot" width="500"/><br>
-<img src="/public/static/meta/screenshot-6.png" alt="screenshot" height="500"/><img src="/public/static/meta/screenshot-7.png" alt="screenshot" height="500"/><br>
+<img src="/public/static/meta/screenshot-6.png" alt="screenshot" height="500"/><br>
+<img src="/public/static/meta/screenshot-7.png" alt="screenshot" height="500"/><br>
 
 <br>
 
